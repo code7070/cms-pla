@@ -2,7 +2,7 @@ import imkasService from "../../imkas-service";
 import Thumbnail from "../../components/thumbnail";
 import { isLocalLogin, isLogin } from "../../helpers/util";
 import { parseUrl } from "query-string";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Home = () => {
   const login = isLogin();
