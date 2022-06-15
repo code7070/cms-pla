@@ -42,7 +42,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/", (req, res) => {
   console.log("POST BODY IMKAS: ", req, res);
-  if (req.body.superAuth) document.cookie = `super-login=${req.body.superAuth}`;
+  if (req.body.superAuth) res.cookie("super-login", req.body.superAuth);
 });
 
 app.use(express.static(path.join(__dirname, targetFolder)));
