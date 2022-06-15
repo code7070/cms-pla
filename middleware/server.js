@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const helmet = require("helmet");
+const bodyParser = require("body-parser");
 // const { shouldShowPrerenderedPage } = require("./prerender");
 // const { prerenderPage } = require("./prerender");
 
@@ -34,6 +35,14 @@ app.use((req, res, next) => {
 app.get("/", async (req, res, next) => {
   // if (shouldShowPrerenderedPage(req)) return prerenderPage(req, res);
   return next();
+});
+
+// ADDITIONAL FOR FROM POST
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.post("/", (req, res) => {
+  console.log("POST BODY IMKAS: ", req, res);
+  if (req.body.superAuth) document.cookie`super-login=${req.body.superAuth}`;
 });
 
 app.use(express.static(path.join(__dirname, targetFolder)));
