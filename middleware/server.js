@@ -40,10 +40,11 @@ app.get("/", async (req, res, next) => {
 // ADDITIONAL FOR FROM POST
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.post("/", (req, res) => {
-//   console.log("POST BODY IMKAS: ", req, res);
-//   if (req.body.superAuth) res.cookie("super-login", req.body.superAuth);
-// });
+app.post("/", (req, res) => {
+  console.log("POST BODY IMKAS: ", req, res);
+  if (req.body.superAuth) res.cookie("super-login", req.body.superAuth);
+  return res.sendFile(path.join(__dirname, targetFolder, "index.html"));
+});
 
 app.use(express.static(path.join(__dirname, targetFolder)));
 
@@ -53,7 +54,6 @@ app.get("/not-found", (req, res) => {
 
 app.get("/*", (req, res) => {
   // if (shouldShowPrerenderedPage(req)) return prerenderPage(req, res);
-  if (req.body.superAuth) res.cookie("super-login", req.body.superAuth);
   return res.sendFile(path.join(__dirname, targetFolder, "index.html"));
 });
 
