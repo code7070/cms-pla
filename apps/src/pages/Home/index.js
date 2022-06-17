@@ -26,7 +26,7 @@ const Home = () => {
 
   return (
     <div className="text-center max-w-xl lg:max-w-5xl mx-auto my-20 border-4 border-gray-300 rounded-lg">
-      <p className="text-2xl text-gray-800 font-bold my-10">IMKAS</p>
+      <p className="text-2xl text-gray-800 font-bold my-10">INSURANCE</p>
       {login || query.token ? (
         <>
           <div className="my-20 break-words">
