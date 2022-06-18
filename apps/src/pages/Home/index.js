@@ -3,6 +3,8 @@ import Thumbnail from "../../components/thumbnail";
 import { isLocalLogin, isLogin } from "../../helpers/util";
 import { parseUrl } from "query-string";
 import { useLocation } from "react-router-dom";
+import HomeNoLogin from "./HomeNoLogin";
+import Button from "../../components/button";
 
 const Home = () => {
   const login = isLogin();
@@ -24,54 +26,48 @@ const Home = () => {
   const callCookie = () =>
     window.postMessage(readCookie("super-login"), "http://localhost:3000/");
 
+  let view = (
+    <HomeNoLogin
+      callCookie={callCookie}
+      localLogin={localLogin}
+      query={query}
+    />
+  );
+
+  if (login)
+    view = (
+      <>
+        <div className="my-20 break-words">
+          <div className="text-xl font-bold">Login info</div>
+          <div className="text-md">{JSON.stringify(login)}</div>
+        </div>
+        <div className="my-20">
+          <div className="max-w-max grid grid-cols-3 gap-4 mx-auto">
+            {imkasService.map((item) => (
+              <Thumbnail key={item.name} name={item.name} link={item.link} />
+            ))}
+          </div>
+        </div>
+        {console.log(window.parent)}
+      </>
+    );
+
+  if (window.parent === window.self) {
+    const clicks = () => (window.location.href = "https://wknd-otto.my.id/");
+    return (
+      <div className="text-center my-20">
+        <div className="text-center my-5 text-3xl ">I NEED SUPER DASHBOARD</div>
+        <div>
+          <Button onClick={clicks}>Open SUPER</Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="text-center max-w-xl lg:max-w-5xl mx-auto my-20 border-4 border-gray-300 rounded-lg">
       <p className="text-2xl text-gray-800 font-bold my-10">PLA</p>
-      {login || query.token ? (
-        <>
-          <div className="my-20 break-words">
-            <div className="text-xl font-bold">Login info</div>
-            <div className="text-md">{JSON.stringify(login)}</div>
-          </div>
-          <div className="my-20">
-            <div className="max-w-max grid grid-cols-3 gap-4 mx-auto">
-              {imkasService.map((item) => (
-                <Thumbnail key={item.name} name={item.name} link={item.link} />
-              ))}
-            </div>
-          </div>
-        </>
-      ) : (
-        <div className="mb-10">
-          <div className="text-xl font-bold text-red-500 mb-10">
-            You're not logged in
-          </div>
-          <div className="text-md text-blue-500 mb-10">
-            <div className="font-bold text-lg">TOKEN:</div>
-            <div>{JSON.stringify(query.token)}</div>
-          </div>
-          <div className="text-md text-blue-500 mb-10">
-            <div className="font-bold text-lg">DOCUMENT COOKIE:</div>
-            <div>
-              {document.cookie.split("; ").map((item) => (
-                <div>{item}</div>
-              ))}
-            </div>
-          </div>
-          <div className="text-md text-blue-500 mb-10">
-            <div className="font-bold text-lg">WINDOW PARENT:</div>
-            <div>{JSON.stringify(Window.parent)}</div>
-          </div>
-          <div className="text-md text-blue-500 mb-10">
-            <div className="font-bold text-lg">CALL COOKIE:</div>
-            <div>{JSON.stringify(callCookie())}</div>
-          </div>
-          <div className="text-md text-blue-500 mb-10">
-            <div className="font-bold text-lg">LOCAL LOGIN:</div>
-            <div>{JSON.stringify(localLogin)}</div>
-          </div>
-        </div>
-      )}
+      {view}
     </div>
   );
 };
