@@ -46,7 +46,7 @@ app.post("/", (req, res) => {
     res.cookie("super-login", req.body.superAuth, {
       sameSite: "None",
       secure: true,
-      expires: 1,
+      expires: new Date(Date.now() + 3600 * 1000 * 24),
     });
   return res.sendFile(path.join(__dirname, targetFolder, "index.html"));
 });
