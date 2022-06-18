@@ -5,12 +5,28 @@ import { parseUrl } from "query-string";
 import { useLocation } from "react-router-dom";
 import HomeNoLogin from "./HomeNoLogin";
 import Button from "../../components/button";
+import { useEffect, useState } from "react";
+import NotAlone from "./SelfDeny";
 
 const Home = () => {
   const login = isLogin();
   const localLogin = isLocalLogin();
   const { search } = useLocation();
   const { query } = parseUrl(search);
+  const [messages, setmsg] = useState(false);
+
+  useEffect(() => {
+    const listenMessage = (message) => {
+      alert(message);
+      console.log("LISTEN MESSAGE: ", message);
+    };
+    window.addEventListener("message", function (e) {
+      console.log("MESSAGE RECEIVED: ", e);
+      const origin = e.originalEvent.origin || e.origin;
+      if (origin !== "http://localhost:3000") return;
+      setmsg("I RECEIVED MESSAGE");
+    });
+  }, []);
 
   function readCookie(name) {
     var nameEQ = name + "=";
@@ -52,22 +68,11 @@ const Home = () => {
       </>
     );
 
-  if (window.parent === window.self) {
-    const clicks = () => (window.location.href = "https://wknd-otto.my.id/");
-    return (
-      <div className="text-center my-20">
-        <div className="text-center my-5 text-3xl ">I NEED SUPER DASHBOARD</div>
-        <div>
-          <Button onClick={clicks}>Open SUPER</Button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="text-center max-w-xl lg:max-w-5xl mx-auto my-20 border-4 border-gray-300 rounded-lg">
       <p className="text-2xl text-gray-800 font-bold my-10">PLA</p>
-      {view}
+      <p>Message: {messages}</p>
+      <NotAlone>{view}</NotAlone>
     </div>
   );
 };
