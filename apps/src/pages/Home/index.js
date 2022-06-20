@@ -4,7 +4,6 @@ import { isLocalLogin, isLogin } from "../../helpers/util";
 import { parseUrl } from "query-string";
 import { useLocation } from "react-router-dom";
 import HomeNoLogin from "./HomeNoLogin";
-import Button from "../../components/button";
 import { useEffect, useState } from "react";
 import NotAlone from "./SelfDeny";
 
@@ -16,16 +15,16 @@ const Home = () => {
   const [messages, setmsg] = useState(false);
 
   useEffect(() => {
-    const listenMessage = (message) => {
-      alert(message);
-      console.log("LISTEN MESSAGE: ", message);
-    };
-    window.addEventListener("message", function (e) {
+    const listenMessage = (e) => {
       console.log("MESSAGE RECEIVED: ", e);
-      const origin = e.originalEvent.origin || e.origin;
-      if (origin !== "http://localhost:3000") return;
-      setmsg("I RECEIVED MESSAGE");
-    });
+      if (e && e.data) setmsg(e.data);
+    };
+
+    window.addEventListener("message", listenMessage);
+
+    return () => {
+      window.removeEventListener("message", listenMessage);
+    };
   }, []);
 
   function readCookie(name) {
@@ -64,7 +63,6 @@ const Home = () => {
             ))}
           </div>
         </div>
-        {console.log(window.parent)}
       </>
     );
 
@@ -72,7 +70,7 @@ const Home = () => {
     // <NotAlone>
     <div className="text-center max-w-xl lg:max-w-5xl mx-auto my-20 border-4 border-gray-300 rounded-lg">
       <p className="text-2xl text-gray-800 font-bold my-10">PLA</p>
-      <p>Message: {messages}</p>
+      <p>Message: {JSON.stringify(messages)}</p>
       {view}
     </div>
     // </NotAlone>
