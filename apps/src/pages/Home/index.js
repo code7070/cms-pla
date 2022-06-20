@@ -19,6 +19,7 @@ const Home = () => {
       console.log("MESSAGE RECEIVED: ", e);
       if (e && e.data) {
         setmsg(`${messages} ${e.data}`);
+        if (e.data === "logout") alert("super-login should be deleted");
         if (e.data === "logout") setCookie("super-login", "");
       }
     };
