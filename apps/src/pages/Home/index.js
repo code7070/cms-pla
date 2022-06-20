@@ -5,7 +5,7 @@ import { parseUrl } from "query-string";
 import { useLocation } from "react-router-dom";
 import HomeNoLogin from "./HomeNoLogin";
 import { useEffect, useState } from "react";
-import NotAlone from "./SelfDeny";
+import NotAlone from "./NotAlone";
 
 const Home = () => {
   const login = isLogin();
@@ -14,25 +14,36 @@ const Home = () => {
   const { query } = parseUrl(search);
   const [messages, setmsg] = useState("false");
 
+  // useEffect(() => {
+  //   const listenMessage = (e) => {
+  //     console.log("MESSAGE RECEIVED: ", e);
+  //     if (e && e.data) {
+  //       setmsg(`${messages} ${e.data}`);
+  //       if (e.data === "logout") {
+  //         alert("super-login should be deleted");
+  //         removeCookie("super-login");
+  //         document.cookie = "super-login=";
+  //         document.cookie = "changes=flafla;";
+  //       }
+  //     }
+  //   };
+
+  //   window.addEventListener("message", listenMessage);
+
+  //   return () => {
+  //     window.removeEventListener("message", listenMessage);
+  //   };
+  // }, [messages]);
+
   useEffect(() => {
-    const listenMessage = (e) => {
-      console.log("MESSAGE RECEIVED: ", e);
-      if (e && e.data) {
-        setmsg(`${messages} ${e.data}`);
-        if (e.data === "logout") {
-          alert("super-login should be deleted");
-          removeCookie("super-login");
-          document.cookie = "super-login=";
-          document.cookie = "changes=flafla;";
-        }
-      }
+    const listenMessage = (post) => {
+      console.log("Message received: ", post);
+      setmsg(post.data);
+      if (post.data === "logout") removeCookie("super-login");
     };
 
-    window.addEventListener("message", listenMessage);
-
-    return () => {
-      window.removeEventListener("message", listenMessage);
-    };
+    navigator.serviceWorker.addEventListener("message", listenMessage);
+    return () => navigator.serviceWorker.removeEventListener("message");
   }, [messages]);
 
   let view = <HomeNoLogin localLogin={localLogin} query={query} />;
