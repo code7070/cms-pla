@@ -32,7 +32,10 @@ const Home = () => {
   }, [messages]);
 
   useEffect(() => {
-    if (messages.includes("logout")) removeCookie("super-login");
+    if (messages.includes("logout")) {
+      removeCookie("super-login");
+      document.cookie = "super-login=";
+    }
   }, [messages]);
 
   function readCookie(name) {
