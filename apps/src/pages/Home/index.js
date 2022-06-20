@@ -20,7 +20,10 @@ const Home = () => {
       if (e && e.data) {
         setmsg(`${messages} ${e.data}`);
         if (e.data === "logout") alert("super-login should be deleted");
-        if (e.data === "logout") removeCookie("super-login", "");
+        if (e.data === "logout") {
+          removeCookie("super-login");
+          document.cookie = "super-login=";
+        }
       }
     };
 
@@ -29,14 +32,6 @@ const Home = () => {
     return () => {
       window.removeEventListener("message", listenMessage);
     };
-  }, [messages]);
-
-  useEffect(() => {
-    if (messages.includes("logout")) {
-      console.log("includes logout");
-      removeCookie("super-login");
-      document.cookie = "super-login=";
-    }
   }, [messages]);
 
   function readCookie(name) {
