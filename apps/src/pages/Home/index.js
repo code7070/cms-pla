@@ -1,6 +1,6 @@
 import imkasService from "../../imkas-service";
 import Thumbnail from "../../components/thumbnail";
-import { isLocalLogin, isLogin } from "../../helpers/util";
+import { isLocalLogin, isLogin, setCookie } from "../../helpers/util";
 import { parseUrl } from "query-string";
 import { useLocation } from "react-router-dom";
 import HomeNoLogin from "./HomeNoLogin";
@@ -12,12 +12,15 @@ const Home = () => {
   const localLogin = isLocalLogin();
   const { search } = useLocation();
   const { query } = parseUrl(search);
-  const [messages, setmsg] = useState(false);
+  const [messages, setmsg] = useState("false");
 
   useEffect(() => {
     const listenMessage = (e) => {
       console.log("MESSAGE RECEIVED: ", e);
-      if (e && e.data) setmsg(e.data);
+      if (e && e.data) {
+        setmsg(`${messages} ${e.data}`);
+        if (e.data === "logout") setCookie("super-login", "");
+      }
     };
 
     window.addEventListener("message", listenMessage);
@@ -25,7 +28,7 @@ const Home = () => {
     return () => {
       window.removeEventListener("message", listenMessage);
     };
-  }, []);
+  }, [messages]);
 
   function readCookie(name) {
     var nameEQ = name + "=";
