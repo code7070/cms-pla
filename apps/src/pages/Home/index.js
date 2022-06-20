@@ -1,6 +1,6 @@
 import imkasService from "../../imkas-service";
 import Thumbnail from "../../components/thumbnail";
-import { isLocalLogin, isLogin, setCookie } from "../../helpers/util";
+import { isLocalLogin, isLogin, removeCookie } from "../../helpers/util";
 import { parseUrl } from "query-string";
 import { useLocation } from "react-router-dom";
 import HomeNoLogin from "./HomeNoLogin";
@@ -20,7 +20,7 @@ const Home = () => {
       if (e && e.data) {
         setmsg(`${messages} ${e.data}`);
         if (e.data === "logout") alert("super-login should be deleted");
-        if (e.data === "logout") setCookie("super-login", "");
+        if (e.data === "logout") removeCookie("super-login", "");
       }
     };
 
