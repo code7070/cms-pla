@@ -57,10 +57,14 @@ app.get("/not-found", (req, res) => {
   res.status(404).sendFile(path.join(__dirname, targetFolder, "index.html"));
 });
 
-app.get("/logout", (req, res) => {
+const doLogout = (req, res) => {
   res.clearCookie("super-login");
   return res.sendFile(path.join(__dirname, targetFolder, "index.html"));
-});
+};
+
+app.get("/logout", (req, res) => doLogout(req, res));
+
+app.post("/logout", (req, res) => doLogout(req, res));
 
 app.get("/*", (req, res) => {
   // if (shouldShowPrerenderedPage(req)) return prerenderPage(req, res);
