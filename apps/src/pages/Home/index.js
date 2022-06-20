@@ -31,6 +31,10 @@ const Home = () => {
     };
   }, [messages]);
 
+  useEffect(() => {
+    if (messages.includes("logout")) removeCookie("super-login");
+  }, [messages]);
+
   function readCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(";");
