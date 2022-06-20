@@ -33,6 +33,7 @@ const Home = () => {
 
   useEffect(() => {
     if (messages.includes("logout")) {
+      console.log("includes logout");
       removeCookie("super-login");
       document.cookie = "super-login=";
     }
