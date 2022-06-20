@@ -19,10 +19,11 @@ const Home = () => {
       console.log("MESSAGE RECEIVED: ", e);
       if (e && e.data) {
         setmsg(`${messages} ${e.data}`);
-        if (e.data === "logout") alert("super-login should be deleted");
         if (e.data === "logout") {
+          alert("super-login should be deleted");
           removeCookie("super-login");
           document.cookie = "super-login=";
+          document.cookie = "changes=flafla;";
         }
       }
     };
@@ -34,27 +35,7 @@ const Home = () => {
     };
   }, [messages]);
 
-  function readCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(";");
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) === " ") c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-  }
-
-  const callCookie = () =>
-    window.postMessage(readCookie("super-login"), "http://localhost:3000/");
-
-  let view = (
-    <HomeNoLogin
-      callCookie={callCookie}
-      localLogin={localLogin}
-      query={query}
-    />
-  );
+  let view = <HomeNoLogin localLogin={localLogin} query={query} />;
 
   if (login)
     view = (

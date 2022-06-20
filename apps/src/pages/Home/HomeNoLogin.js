@@ -1,4 +1,4 @@
-const HomeNoLogin = ({ query, callCookie, localLogin }) => {
+const HomeNoLogin = ({ query, localLogin }) => {
   return (
     <div className="mb-10">
       <div className="text-xl font-bold text-red-500 mb-10">
@@ -19,10 +19,6 @@ const HomeNoLogin = ({ query, callCookie, localLogin }) => {
       <div className="text-md text-blue-500 mb-10">
         <div className="font-bold text-lg">WINDOW PARENT:</div>
         <div>{JSON.stringify(Window.parent)}</div>
-      </div>
-      <div className="text-md text-blue-500 mb-10">
-        <div className="font-bold text-lg">CALL COOKIE:</div>
-        <div>{JSON.stringify(callCookie())}</div>
       </div>
       <div className="text-md text-blue-500 mb-10">
         <div className="font-bold text-lg">LOCAL LOGIN:</div>
