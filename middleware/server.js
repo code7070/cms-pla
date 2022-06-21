@@ -41,13 +41,13 @@ app.get("/", async (req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/", (req, res) => {
-  console.log("POST BODY IMKAS: ", req, res);
   if (req.body.superAuth)
     res.cookie("super-login", req.body.superAuth, {
       sameSite: "None",
       secure: true,
       expires: new Date(Date.now() + 3600 * 1000 * 24),
     });
+  else if (req.body.deleteAuth) res.clearCookie("super-login");
   return res.sendFile(path.join(__dirname, targetFolder, "index.html"));
 });
 
