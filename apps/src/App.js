@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { isLogin } from "./helpers/util";
 import CarrierService from "./pages/carrier-service/CarrierService";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import WaterService from "./pages/water/WaterService";
 import Unservice from "./Unservice";
 

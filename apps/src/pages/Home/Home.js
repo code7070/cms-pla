@@ -35,16 +35,16 @@ const Home = () => {
   //   };
   // }, [messages]);
 
-  useEffect(() => {
-    const listenMessage = (post) => {
-      console.log("Message received: ", post);
-      setmsg(post.data);
-      if (post.data === "logout") removeCookie("super-login");
-    };
+  // useEffect(() => {
+  //   const listenMessage = (post) => {
+  //     console.log("Message received: ", post);
+  //     setmsg(post.data);
+  //     if (post.data === "logout") removeCookie("super-login");
+  //   };
 
-    navigator.serviceWorker.addEventListener("message", listenMessage);
-    return () => navigator.serviceWorker.removeEventListener("message");
-  }, [messages]);
+  //   navigator.serviceWorker.addEventListener("message", listenMessage);
+  //   return () => navigator.serviceWorker.removeEventListener("message");
+  // }, [messages]);
 
   let view = <HomeNoLogin localLogin={localLogin} query={query} />;
 

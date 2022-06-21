@@ -71,7 +71,7 @@ self.addEventListener("message", (event) => {
 });
 
 self.addEventListener("message", (event) => {
-  console.log("I RECEIVE MESSAGEL :", event);
+  console.log("I RECEIVE MESSAGED :", event.data);
 });
 
 // Any other custom service worker logic can go here.
