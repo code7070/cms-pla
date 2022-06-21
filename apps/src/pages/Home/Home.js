@@ -14,41 +14,41 @@ const Home = () => {
   const { query } = parseUrl(search);
   const [messages, setmsg] = useState("false");
 
-  // useEffect(() => {
-  //   const listenMessage = (e) => {
-  //     console.log("MESSAGE RECEIVED: ", e);
-  //     if (e && e.data) {
-  //       setmsg(`${messages} ${e.data}`);
-  //       if (e.data === "logout") {
-  //         alert("super-login should be deleted");
-  //         removeCookie("super-login");
-  //         document.cookie = "super-login=";
-  //         document.cookie = "changes=flafla;";
-  //       }
-  //     }
-  //   };
-
-  //   window.addEventListener("message", listenMessage);
-
-  //   return () => {
-  //     window.removeEventListener("message", listenMessage);
-  //   };
-  // }, [messages]);
-
   useEffect(() => {
-    const listenMessage = (post) => {
-      console.log("Message received: ", post);
-      setmsg(post.data);
-      if (post.data === "logout") removeCookie("super-login");
+    const listenMessage = (e) => {
+      console.log("MESSAGE RECEIVED: ", e);
+      if (e && e.data) {
+        setmsg(`${messages} ${e.data}`);
+        if (e.data === "logout") {
+          alert("super-login should be deleted");
+          removeCookie("super-login");
+          document.cookie = "super-login=";
+          document.cookie = "changes=flafla;";
+        }
+      }
     };
 
-    navigator.serviceWorker.controller.addEventListener(
-      "message",
-      listenMessage
-    );
-    return () =>
-      navigator.serviceWorker.controller.removeEventListener("message");
+    window.addEventListener("message", listenMessage);
+
+    return () => {
+      window.removeEventListener("message", listenMessage);
+    };
   }, [messages]);
+
+  // useEffect(() => {
+  //   const listenMessage = (post) => {
+  //     console.log("Message received: ", post);
+  //     setmsg(post.data);
+  //     if (post.data === "logout") removeCookie("super-login");
+  //   };
+
+  //   navigator.serviceWorker.controller.addEventListener(
+  //     "message",
+  //     listenMessage
+  //   );
+  //   return () =>
+  //     navigator.serviceWorker.controller.removeEventListener("message");
+  // }, [messages]);
 
   let view = <HomeNoLogin localLogin={localLogin} query={query} />;
 
