@@ -22,6 +22,7 @@ const Home = () => {
         if (e.data === "logout") {
           alert("super-login should be deleted");
           removeCookie("super-login");
+          window.location.reload();
           document.cookie = "super-login=";
           document.cookie = "changes=flafla;";
         }
