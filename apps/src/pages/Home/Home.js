@@ -2,39 +2,56 @@ import imkasService from "../../imkas-service";
 import Thumbnail from "../../components/thumbnail";
 import { isLocalLogin, isLogin, removeCookie } from "../../helpers/util";
 import { parseUrl } from "query-string";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import HomeNoLogin from "./HomeNoLogin";
 import { useEffect, useState } from "react";
 import NotAlone from "./NotAlone";
+
+const linklist = [
+  { path: "/", text: "Dashboard" },
+  { path: "/transactions", text: "Transactions" },
+  { path: "/settlement", text: "Settlement" },
+];
+
+const LinkItem = ({ path, text }) => {
+  const { pathname } = useLocation();
+  const clsActive =
+    pathname === path ? "bg-sky-500 text-white" : "hover:bg-sky-100";
+  return (
+    <Link className={`p-2 ${clsActive}`} to={path}>
+      {text}
+    </Link>
+  );
+};
 
 const Home = () => {
   const login = isLogin();
   const localLogin = isLocalLogin();
   const { search } = useLocation();
   const { query } = parseUrl(search);
-  const [messages, setmsg] = useState("false");
+  const [messages, setmsg] = useState("");
 
-  useEffect(() => {
-    const listenMessage = (e) => {
-      console.log("MESSAGE RECEIVED: ", e);
-      if (e && e.data) {
-        setmsg(`${messages} ${e.data}`);
-        if (e.data === "logout") {
-          alert("super-login should be deleted");
-          removeCookie("super-login");
-          window.location.reload();
-          document.cookie = "super-login=";
-          document.cookie = "changes=flafla;";
-        }
-      }
-    };
+  // useEffect(() => {
+  //   const listenMessage = (e) => {
+  //     console.log("MESSAGE RECEIVED: ", e);
+  //     if (e && e.data) {
+  //       setmsg(`${messages} ${e.data}`);
+  //       if (e.data === "logout") {
+  //         alert("super-login should be deleted");
+  //         removeCookie("super-login");
+  //         window.location.reload();
+  //         document.cookie = "super-login=";
+  //         document.cookie = "changes=flafla;";
+  //       }
+  //     }
+  //   };
 
-    window.addEventListener("message", listenMessage);
+  //   window.addEventListener("message", listenMessage);
 
-    return () => {
-      window.removeEventListener("message", listenMessage);
-    };
-  }, [messages]);
+  //   return () => {
+  //     window.removeEventListener("message", listenMessage);
+  //   };
+  // }, [messages]);
 
   // useEffect(() => {
   //   const listenMessage = (post) => {
@@ -60,21 +77,26 @@ const Home = () => {
           <div className="text-xl font-bold">Login info</div>
           <div className="text-md">{JSON.stringify(login)}</div>
         </div>
-        <div className="my-20">
+        <div className="grid grid-cols-3 divide-x rounded-xl border-2 max-w-xl mx-auto overflow-hidden">
+          {linklist.map((item) => (
+            <LinkItem {...item} />
+          ))}
+        </div>
+        {/* <div className="my-20">
           <div className="max-w-max grid grid-cols-3 gap-4 mx-auto">
             {imkasService.map((item) => (
               <Thumbnail key={item.name} name={item.name} link={item.link} />
             ))}
           </div>
-        </div>
+        </div> */}
       </>
     );
 
   return (
     // <NotAlone>
-    <div className="text-center max-w-xl lg:max-w-5xl mx-auto my-20 border-4 border-gray-300 rounded-lg">
+    <div className="text-center mx-autoborder-4 border-gray-300 rounded-lg">
       <p className="text-2xl text-gray-800 font-bold my-10">PLA</p>
-      <p>Message: {JSON.stringify(messages)}</p>
+      {messages && <p>Message: {JSON.stringify(messages)}</p>}
       {view}
     </div>
     // </NotAlone>
