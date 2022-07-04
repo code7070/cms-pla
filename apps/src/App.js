@@ -2,7 +2,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { isLogin } from "./helpers/util";
 import CarrierService from "./pages/carrier-service/CarrierService";
-import Home from "./pages/Home/Home";
+import Home, { PageTitle } from "./pages/Home/Home";
+import Transaction from "./pages/Transactions";
+import UserInfo from "./pages/UserInfo";
 import WaterService from "./pages/water/WaterService";
 import Unservice from "./Unservice";
 
@@ -17,17 +19,22 @@ function App() {
         <Route path="/paket-data" element={<CarrierService />} />
         <Route path="/pdam" element={<WaterService />} />
         <Route path="/telepon" element={<WaterService />} />
+        <Route path="/user-info" element={<UserInfo />} />
+        <Route path="/transactions" element={<Transaction />} />
         <Route path="*" element={<Unservice />} />
       </>
     );
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route index path="/" element={<Home />} />
-        {routing}
-      </Routes>
-    </BrowserRouter>
+    <>
+      <PageTitle text="PLA Service" />
+      <BrowserRouter>
+        <Routes>
+          <Route index path="/" element={<Home />} />
+          {routing}
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

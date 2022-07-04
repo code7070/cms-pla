@@ -1,16 +1,15 @@
-import imkasService from "../../imkas-service";
-import Thumbnail from "../../components/thumbnail";
-import { isLocalLogin, isLogin, removeCookie } from "../../helpers/util";
+import { isLocalLogin, isLogin } from "../../helpers/util";
 import { parseUrl } from "query-string";
 import { Link, useLocation } from "react-router-dom";
 import HomeNoLogin from "./HomeNoLogin";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NotAlone from "./NotAlone";
 
 const linklist = [
   { path: "/", text: "Dashboard" },
   { path: "/transactions", text: "Transactions" },
   { path: "/settlement", text: "Settlement" },
+  { path: "/user-info", text: "User Info" },
 ];
 
 const LinkItem = ({ path, text }) => {
@@ -18,11 +17,27 @@ const LinkItem = ({ path, text }) => {
   const clsActive =
     pathname === path ? "bg-sky-500 text-white" : "hover:bg-sky-100";
   return (
-    <Link className={`p-2 ${clsActive}`} to={path}>
+    <Link className={`p-2 text-center ${clsActive}`} to={path}>
       {text}
     </Link>
   );
 };
+
+export const Menubar = () => (
+  <div className="grid grid-cols-4 divide-x rounded-xl border-2 max-w-2xl mx-auto overflow-hidden">
+    {linklist.map((item) => (
+      <LinkItem {...item} />
+    ))}
+  </div>
+);
+
+export const PageTitle = ({ text }) => (
+  <p className="text-center text-3xl text-gray-800 font-bold my-10">{text}</p>
+);
+
+export const PageSubtitle = ({ text }) => (
+  <p className="text-center text-xl text-gray-800 font-bold my-10">{text}</p>
+);
 
 const Home = () => {
   const login = isLogin();
@@ -73,15 +88,8 @@ const Home = () => {
   if (login)
     view = (
       <>
-        <div className="my-20 break-words">
-          <div className="text-xl font-bold">Login info</div>
-          <div className="text-md">{JSON.stringify(login)}</div>
-        </div>
-        <div className="grid grid-cols-3 divide-x rounded-xl border-2 max-w-xl mx-auto overflow-hidden">
-          {linklist.map((item) => (
-            <LinkItem {...item} />
-          ))}
-        </div>
+        <Menubar />
+        <h2>Hello this is Dashboard PLA service</h2>
         {/* <div className="my-20">
           <div className="max-w-max grid grid-cols-3 gap-4 mx-auto">
             {imkasService.map((item) => (
@@ -95,7 +103,7 @@ const Home = () => {
   return (
     // <NotAlone>
     <div className="text-center mx-autoborder-4 border-gray-300 rounded-lg">
-      <p className="text-2xl text-gray-800 font-bold my-10">PLA</p>
+      <PageSubtitle text="Dashboard" />
       {messages && <p>Message: {JSON.stringify(messages)}</p>}
       {view}
     </div>
