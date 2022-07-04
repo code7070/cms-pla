@@ -102,7 +102,7 @@ const Home = () => {
 
   return (
     // <NotAlone>
-    <div className="text-center mx-autoborder-4 border-gray-300 rounded-lg">
+    <div className="text-center mx-auto border-4 border-gray-300 rounded-lg">
       <PageSubtitle text="Dashboard" />
       {messages && <p>Message: {JSON.stringify(messages)}</p>}
       {view}
