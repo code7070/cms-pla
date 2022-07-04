@@ -24,7 +24,7 @@ const LinkItem = ({ path, text }) => {
 };
 
 export const Menubar = () => (
-  <div className="grid grid-cols-4 divide-x rounded-xl border-2 max-w-2xl mx-auto overflow-hidden">
+  <div className="grid grid-cols-4 divide-x rounded-xl border-2 border-gray-200 max-w-2xl mx-auto overflow-hidden">
     {linklist.map((item) => (
       <LinkItem {...item} />
     ))}
@@ -102,7 +102,7 @@ const Home = () => {
 
   return (
     // <NotAlone>
-    <div className="text-center mx-auto border-4 border-gray-300 rounded-lg">
+    <div className="text-center mx-auto rounded-lg">
       <PageSubtitle text="Dashboard" />
       {messages && <p>Message: {JSON.stringify(messages)}</p>}
       {view}
