@@ -12,7 +12,7 @@ const HomeNoLogin = ({ query, localLogin }) => {
         <div className="font-bold text-lg">DOCUMENT COOKIE:</div>
         <div>
           {document.cookie.split("; ").map((item) => (
-            <div>{item}</div>
+            <div key={item}>{item}</div>
           ))}
         </div>
       </div>

@@ -12,7 +12,7 @@ export const setCookie = (name, value, expires = 1, path = "/") => {
 export const removeCookie = (name) => Cookies.remove(name);
 
 export const isLogin = () => {
-  return getCookie("super-login");
+  return getCookie("super-login") || getCookie("token");
 };
 
 export const isLocalLogin = () => {

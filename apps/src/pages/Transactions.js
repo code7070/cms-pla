@@ -1,4 +1,4 @@
-import Skeleton from "react-loading-skeleton";
+// import Skeleton from "react-loading-skeleton";
 import { Menubar, PageSubtitle } from "./Home/Home";
 
 const Transaction = () => {
@@ -7,7 +7,7 @@ const Transaction = () => {
       <PageSubtitle text="Transaction" />
       <Menubar />
       <div>
-        <table class="table-auto mx-auto my-5 border-2 rounded-lg">
+        <table className="table-auto mx-auto my-5 border-2 rounded-lg">
           <thead>
             <tr>
               <th>Transaction</th>

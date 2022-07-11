@@ -11,7 +11,7 @@ const UserInfo = () => {
       <div className="my-20 break-words max-w-lg mx-auto">
         <div className="text-xl font-bold">User info</div>
         <div className="text-md">
-          {x.id}-{x.name}
+          {(x && x.id) || "id"}-{(x && x.name) || "Name"}
         </div>
         <div className="text-md">{JSON.stringify(x)}</div>
       </div>
