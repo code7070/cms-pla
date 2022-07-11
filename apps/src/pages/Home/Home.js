@@ -10,7 +10,7 @@ const LinkItem = ({ path, text }) => {
     route === path ? "bg-sky-500 text-white" : "hover:bg-sky-100";
   const classes = `p-2 text-center ${clsActive}`;
   const click = () => {
-    window.parent.location.href = `/dashboard/gold${path}`;
+    // window.parent.location.href = `/dashboard/gold${path}`;
   };
   return (
     <a href={path} className={classes} to={path} onClick={click}>
