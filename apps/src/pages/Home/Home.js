@@ -25,7 +25,7 @@ export const Menubar = () => {
   ];
 
   return (
-    <div className="grid grid-cols-4 divide-x rounded-xl border-2 border-gray-200 max-w-2xl mx-auto overflow-hidden">
+    <div className="grid grid-cols-4 divide-x rounded-xl border-2 border-gray-200 bg-slate-300 max-w-2xl mx-auto overflow-hidden">
       {linklist.map((item) => (
         <LinkItem key={item.path} {...item} />
       ))}
