@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import Button from "../components/button";
 import { Menubar } from "./Home/Home";
 
 const UserDetail = () => {
@@ -65,16 +66,12 @@ const UserDetail = () => {
               <option value="male">Male</option>
               <option value="male">Female</option>
             </select>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white rounded px-4 py-2 mt-10 mx-auto w-lg"
-              type="button"
-              onClick={() => window.confirm("Are you sure?")}
-            >
-              Test
-            </button>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white rounded px-4 py-2 mt-10 mx-auto w-lg">
-              Save
-            </button>
+            <div className="mt-10">
+              <Button onClick={() => window.confirm("Are you sure?")}>
+                Test
+              </Button>
+              <Button type="submit">Save</Button>
+            </div>
           </form>
         )}
       </div>
