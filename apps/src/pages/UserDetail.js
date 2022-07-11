@@ -17,23 +17,22 @@ const UserDetail = () => {
   useEffect(() => {
     if (id && users && typeof users === "object" && !user) {
       const finds = users.find((i) => i.id === parseInt(id, 10));
-      console.log({ finds });
       setUser(finds);
     }
   }, [id, users, user]);
 
   useEffect(() => {
-    const fn = (e) => {
-      if (!submitted) {
-        e.preventDefault();
-        console.log("TRIGGING..............");
-        return (e.returnValue = "Are you sure?");
-      }
+    const fn = (event) => {
+      console.log("Event: ", event);
+      event.preventDefault();
+      return (event.returnValue = "Are you sure?");
     };
 
-    window.addEventListener("beforeunload", fn);
+    window.addEventListener("beforeunload", fn, { capture: true });
 
-    return () => window.removeEventListener("beforeunload", fn);
+    return () => {
+      window.removeEventListener("beforeunload", fn, { capture: true });
+    };
   }, [submitted]);
 
   return (

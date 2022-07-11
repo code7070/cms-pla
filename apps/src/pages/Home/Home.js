@@ -2,7 +2,6 @@ import { isLocalLogin, isLogin } from "../../helpers/util";
 import { parseUrl } from "query-string";
 import { useLocation } from "react-router-dom";
 import HomeNoLogin from "./HomeNoLogin";
-import { useState } from "react";
 // import NotAlone from "./NotAlone";
 
 const LinkItem = ({ path, text }) => {
@@ -47,7 +46,6 @@ const Home = () => {
   const localLogin = isLocalLogin();
   const { search } = useLocation();
   const { query } = parseUrl(search);
-  const [messages, setmsg] = useState("");
 
   let view = <HomeNoLogin localLogin={localLogin} query={query} />;
 
@@ -63,7 +61,6 @@ const Home = () => {
     // <NotAlone>
     <div className="text-center mx-auto rounded-lg">
       <PageSubtitle text="Dashboard" />
-      {messages && <p>Message: {JSON.stringify(messages)}</p>}
       {view}
     </div>
     // </NotAlone>

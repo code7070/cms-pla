@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@reduxjs/toolkit": "^1.8.3",
-    "react-loading-skeleton": "^3.1.0",
-    "react-redux": "^8.0.2"
-  }
-}
