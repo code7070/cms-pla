@@ -5,11 +5,15 @@ import HomeNoLogin from "./HomeNoLogin";
 // import NotAlone from "./NotAlone";
 
 const LinkItem = ({ path, text }) => {
-  const { pathname } = useLocation();
+  const { pathname: route } = useLocation();
   const clsActive =
-    pathname === path ? "bg-sky-500 text-white" : "hover:bg-sky-100";
+    route === path ? "bg-sky-500 text-white" : "hover:bg-sky-100";
+  const classes = `p-2 text-center ${clsActive}`;
+  const click = () => {
+    window.parent.location.href = `/dashboard/gold/${path}`;
+  };
   return (
-    <a href={path} className={`p-2 text-center ${clsActive}`} to={path}>
+    <a href={path} className={classes} to={path} onClick={click}>
       {text}
     </a>
   );
