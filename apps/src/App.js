@@ -14,7 +14,6 @@ function App() {
   const loc = useLocation();
 
   useEffect(() => {
-    console.log("Location Change", loc);
     window.parent.postMessage(loc, "https://wknd-otto.my.id/");
     // window.postMessage(
     //   loc,
