@@ -15,7 +15,11 @@ function App() {
 
   useEffect(() => {
     console.log("Location Change", loc);
-    window.postMessage(loc, "https://wknd-otto.my.id");
+    window.parent.postMessage(loc, "https://wknd-otto.my.id/");
+    // window.postMessage(
+    //   loc,
+    //   "https://wknd-otto.my.id/?origin=https://gold.wknd-otto.my.id"
+    // );
   }, [loc]);
 
   let routing = <Route path="*" element={<Home />} />;
