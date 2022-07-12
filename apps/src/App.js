@@ -1,19 +1,22 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Provider } from "react-redux";
+import { useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 import { isLogin } from "./helpers/util";
-// import CarrierService from "./pages/carrier-service/CarrierService";
-import Home, { PageTitle } from "./pages/Home/Home";
+import Home from "./pages/Home/Home";
 import Transaction from "./pages/Transactions";
 import UserDetail from "./pages/UserDetail";
 import UserInfo from "./pages/UserInfo";
 import UserList from "./pages/UserList";
-// import WaterService from "./pages/water/WaterService";
 import Unservice from "./Unservice";
-import store from "./redux/store";
 
 function App() {
   const login = isLogin();
+  const loc = useLocation();
+
+  useEffect(() => {
+    console.log("Location Change", loc);
+    window.postMessage(loc, "https://wknd-otto.my.id");
+  }, [loc]);
 
   let routing = <Route path="*" element={<Home />} />;
   if (login)
@@ -32,15 +35,10 @@ function App() {
     );
 
   return (
-    <Provider store={store}>
-      <PageTitle text="GOLD CMS" />
-      <BrowserRouter>
-        <Routes>
-          <Route index path="/" element={<Home />} />
-          {routing}
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <Routes>
+      <Route index path="/" element={<Home />} />
+      {routing}
+    </Routes>
   );
 }
 
