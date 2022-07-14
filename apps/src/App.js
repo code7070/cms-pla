@@ -14,7 +14,8 @@ function App() {
   const loc = useLocation();
 
   useEffect(() => {
-    window.parent.postMessage(loc, "https://wknd-otto.my.id/");
+    // Change * for change postMessage destionation
+    window.parent.postMessage(loc, "*");
     // window.postMessage(
     //   loc,
     //   "https://wknd-otto.my.id/?origin=https://gold.wknd-otto.my.id"
