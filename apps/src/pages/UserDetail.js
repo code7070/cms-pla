@@ -67,8 +67,10 @@ const UserDetail = () => {
               <option value="male">Female</option>
             </select>
             <div className="mt-10">
-              <Button onClick={() => window.confirm("Are you sure?")}>
-                Test
+              <Button
+                onClick={() => window.confirm("This is confirm. Are you sure?")}
+              >
+                {`Test confirm()`}
               </Button>
               <Button type="submit">Save</Button>
             </div>
