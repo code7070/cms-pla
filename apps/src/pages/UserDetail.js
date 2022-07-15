@@ -44,7 +44,7 @@ const UserDetail = () => {
           Edit User Detail
         </h2>
         {user && (
-          <form className="bg-blue-100 p-4" onSubmit={doSubmit}>
+          <form className="bg-blue-100 p-4" onSubmit={doSubmit} action="/">
             First name
             <input
               className="block w-full my-2 p-2 rounded"
